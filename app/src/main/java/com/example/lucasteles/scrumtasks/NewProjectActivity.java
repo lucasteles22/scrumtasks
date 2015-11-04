@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class NewProjectActivity extends AppCompatActivity {
 
@@ -53,5 +55,18 @@ public class NewProjectActivity extends AppCompatActivity {
         MenuItem createNewProject = menu.findItem(R.id.new_project);
         createNewProject.setVisible(false);
         return true;
+    }
+
+    public void saveNewProject(View view){
+        Project project = new Project();
+        EditText nameProject = (EditText) findViewById(R.id.editText_name_project);
+        project.setName(nameProject.getText().toString());
+
+        DataBase db = new DataBase(this);
+        db.insert(project);
+
+        Toast.makeText(this, "Projeto inserido com sucesso!", Toast.LENGTH_SHORT).show();
+        Intent homepage = new Intent(this, MainActivity.class);
+        startActivity(homepage);
     }
 }

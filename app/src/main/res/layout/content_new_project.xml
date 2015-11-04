@@ -10,7 +10,41 @@
     tools:showIn="@layout/activity_new_project"
     tools:context="com.example.lucasteles.scrumtasks.NewProjectActivity">
 
-    <TextView android:text="Página criar novo projeto" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Criando novo projeto"
+            android:layout_gravity="center_horizontal"
+            android:textSize="30dp"
+            android:layout_marginBottom="50px"
+            android:id="@+id/textViewTitleCreateNewProject" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText_name_project"
+            android:hint="Nome do projeto"
+            android:layout_marginBottom="20px"
+            android:layout_weight="0.10" />
+
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="Criar"
+            android:id="@+id/btn_create_project"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.10"
+            android:onClick="saveNewProject"/>
+    </LinearLayout>
+
 
 </RelativeLayout>

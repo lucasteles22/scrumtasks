@@ -34,8 +34,8 @@ public class DataBase {
         db.delete("projects", "_id = ?", new String[]{"" + project.getId()});
     }
 
-    public List<Project> findAll(){
-        List<Project> projects = new ArrayList<Project>();
+    public ArrayList<Project> findAll(){
+        ArrayList<Project> projects = new ArrayList<Project>();
         String[] cols = new String[]{"_id", "name"};
         Cursor cursor = db.query("projects", cols, null, null, null, null, "name ASC");
 
