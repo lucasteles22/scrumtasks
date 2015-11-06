@@ -1,6 +1,5 @@
 package com.example.lucasteles.scrumtasks;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,15 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
-public class NewProjectActivity extends AppCompatActivity {
+public class EditProjectActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_project);
+        setContentView(R.layout.activity_edit_project);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,23 +54,4 @@ public class NewProjectActivity extends AppCompatActivity {
         return true;
     }
 
-    public void saveNewProject(View view){
-        EditText editText = (EditText) findViewById(R.id.editText_name_project);
-        String projectName = editText.getText().toString();
-        DataBase db = new DataBase(this);
-
-//      Verify if exists another project with same name
-        if(db.findByName(projectName).size() == 0){
-            Project project = new Project();
-            project.setName(projectName);
-            db.insert(project);
-
-            Intent homepage = new Intent(this, MainActivity.class);
-            startActivity(homepage);
-
-            Toast.makeText(this, "Projeto inserido com sucesso!", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Já existe projeto com este nome", Toast.LENGTH_SHORT).show();
-        }
-    }
 }

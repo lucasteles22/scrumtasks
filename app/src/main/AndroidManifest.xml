@@ -23,6 +23,11 @@
             android:label="@string/title_activity_new_project"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".EditProjectActivity"
+            android:label="@string/title_activity_edit_project"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

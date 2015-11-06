@@ -5,4 +5,5 @@
     <string name="finish">Sair</string>
     <string name="go_back">Voltar</string>
     <string name="title_activity_new_project">Novo projeto</string>
+    <string name="title_activity_edit_project">EditProjectActivity</string>
 </resources>

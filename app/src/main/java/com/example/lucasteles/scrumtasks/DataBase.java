@@ -4,9 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class DataBase {
     private SQLiteDatabase db;
@@ -53,7 +51,22 @@ public class DataBase {
         return projects;
     }
 
-    public void find(){
+    public ArrayList<Project> findByName(String name){
+        ArrayList<Project> projects = new ArrayList<Project>();
+        String[] cols = new String[]{"_id", "name"};
+        Cursor cursor = db.query("projects", cols, "name like ?", new String[]{name}, null, null, "name ASC");
 
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            do {
+                Project p = new Project();
+                p.setId(cursor.getLong(0));
+                p.setName(cursor.getString(1));
+
+                projects.add(p);
+            }while (cursor.moveToNext());
+        }
+
+        return projects;
     }
 }

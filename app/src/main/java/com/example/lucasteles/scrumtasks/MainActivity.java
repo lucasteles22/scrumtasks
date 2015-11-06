@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.list_project);
         listView.setAdapter(adapter);
     }
+
+//    @Override
+//    protected void onListItemClick(ListView l, View v, int position, long id){
+//
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
