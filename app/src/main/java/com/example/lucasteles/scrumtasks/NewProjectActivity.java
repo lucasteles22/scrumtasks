@@ -9,10 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class NewProjectActivity extends AppCompatActivity {
+    private Project project = new Project();
+    private EditText editTextProjectName;
+    private Button createBtn;
+    private Button editBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,24 @@ public class NewProjectActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        editTextProjectName = (EditText) findViewById(R.id.editText_name_project);
+        createBtn = (Button) findViewById(R.id.btn_create_project);
+        editBtn = (Button) findViewById(R.id.btn_edit_project);
+        createBtn.setVisibility(View.VISIBLE);
+        editBtn.setVisibility(View.GONE);
+
+        Intent intent = getIntent();
+        if(intent != null){
+            Bundle bundle = intent.getExtras();
+            if(bundle != null){
+                project.setId(bundle.getLong("id"));
+                project.setName(bundle.getString("name"));
+                editTextProjectName.setText(project.getName());
+                createBtn.setVisibility(View.GONE);
+                editBtn.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
@@ -45,6 +69,8 @@ public class NewProjectActivity extends AppCompatActivity {
                 return true;
             case R.id.go_back:
                 super.finish();
+            case R.id.new_sprint:
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -54,24 +80,42 @@ public class NewProjectActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu){
         MenuItem createNewProject = menu.findItem(R.id.new_project);
         createNewProject.setVisible(false);
+
+        MenuItem newSprint = menu.findItem(R.id.new_sprint);
+        newSprint.setVisible(false);
         return true;
     }
 
     public void saveNewProject(View view){
-        EditText editText = (EditText) findViewById(R.id.editText_name_project);
-        String projectName = editText.getText().toString();
-        DataBase db = new DataBase(this);
+        String projectName = editTextProjectName.getText().toString();
+        SQLiteRepository repository = new SQLiteRepository(this);
 
 //      Verify if exists another project with same name
-        if(db.findByName(projectName).size() == 0){
-            Project project = new Project();
+        if(!projectName.isEmpty() && repository.projectRepository().findByName(projectName).size() == 0){
             project.setName(projectName);
-            db.insert(project);
+            repository.projectRepository().insert(project);
 
             Intent homepage = new Intent(this, MainActivity.class);
             startActivity(homepage);
 
             Toast.makeText(this, "Projeto inserido com sucesso!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Já existe projeto com este nome", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void editProject(View view){
+        String projectName = editTextProjectName.getText().toString();
+        SQLiteRepository repository = new SQLiteRepository(this);
+
+        if(!projectName.isEmpty() && repository.projectRepository().findByName(projectName).size() == 0){
+            project.setName(projectName);
+            repository.projectRepository().update(project);
+
+            Intent homepage = new Intent(this, MainActivity.class);
+            startActivity(homepage);
+
+            Toast.makeText(this, "Projeto atualizado com sucesso!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Já existe projeto com este nome", Toast.LENGTH_SHORT).show();
         }

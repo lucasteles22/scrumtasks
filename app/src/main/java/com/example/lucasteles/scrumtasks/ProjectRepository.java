@@ -1,17 +1,16 @@
 package com.example.lucasteles.scrumtasks;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import java.util.ArrayList;
 
-public class DataBase {
+public class ProjectRepository implements IProjectRepository{
     private SQLiteDatabase db;
 
-    public DataBase(Context ctx){
-        DataBaseCore dataBaseCore = new DataBaseCore(ctx);
-        db = dataBaseCore.getWritableDatabase();
+    public ProjectRepository(SQLiteDatabase db){
+        this.db = db;
     }
 
     public void insert(Project project){
@@ -70,3 +69,4 @@ public class DataBase {
         return projects;
     }
 }
+

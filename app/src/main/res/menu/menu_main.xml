@@ -5,6 +5,11 @@
         android:orderInCategory="100"
         />
     <item
+        android:id="@+id/new_sprint"
+        android:title="@string/new_sprint"
+        android:orderInCategory="100"
+        />
+    <item
         android:id="@+id/go_back"
         android:title="@string/go_back"
         android:orderInCategory="100"

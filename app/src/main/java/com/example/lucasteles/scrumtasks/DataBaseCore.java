@@ -2,11 +2,12 @@ package com.example.lucasteles.scrumtasks;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseCore  extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "ScrumTasksDataBase";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     public DataBaseCore(Context ctx){
         super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
@@ -14,12 +15,41 @@ public class DataBaseCore  extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table projects(_id integer primary key autoincrement, name text not null);");
+        createProjectsTable(db);
+        createSprintsTable(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop table projects;");
-        onCreate(db);
+        try {
+            dropProjectsTable(db);
+            dropSprintsTable(db);
+            onCreate(db);
+        } catch (SQLiteException e){
+
+        }
+    }
+
+    //Projects
+    private void createProjectsTable(SQLiteDatabase db){
+        db.execSQL("create table projects(_id integer primary key autoincrement, name text not null);");
+    }
+
+    private void dropProjectsTable(SQLiteDatabase db){
+        db.execSQL("drop table if exists projects;");
+    }
+
+    //Sprints
+    private void createSprintsTable(SQLiteDatabase db){
+        db.execSQL("create table sprints(" +
+                "_id integer primary key autoincrement, " +
+                "name text not null, " +
+                "position integer not null, " +
+                "project_id integer not null, " +
+                "FOREIGN KEY(project_id) REFERENCES projects(_id));");
+    }
+
+    private void dropSprintsTable(SQLiteDatabase db){
+        db.execSQL("drop table if exists sprints;");
     }
 }

@@ -11,7 +11,7 @@
         android:layout_marginBottom="40px"
         android:layout_marginTop="40px"
         android:gravity="center_vertical|left"
-        android:id="@+id/item_project_name"
+        android:id="@+id/item_sprint_name"
         android:text="Nome"/>
 
     <Button
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:drawable/ic_input_add"
-        android:id="@+id/btn_list_sprints" />
+        android:id="@+id/btn_list_tasks" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10px"
         android:background="@android:drawable/ic_menu_edit"
-        android:id="@+id/btn_edit_project" />
+        android:id="@+id/btn_edit_sprint" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -35,6 +35,6 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/ic_delete"
         android:layout_marginLeft="10px"
-        android:id="@+id/btn_delete_project" />
+        android:id="@+id/btn_delete_sprint" />
 
 </LinearLayout>

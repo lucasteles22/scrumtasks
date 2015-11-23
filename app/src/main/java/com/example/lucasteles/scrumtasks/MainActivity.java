@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DataBase dataBase = new DataBase(this);
-        ArrayList<Project> projects = dataBase.findAll();
+        SQLiteRepository repository = new SQLiteRepository(this);
+        ArrayList<Project> projects = repository.projectRepository().findAll();
 
         ProjectAdapter adapter = new ProjectAdapter(this, projects);
 
@@ -30,10 +30,6 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-//    @Override
-//    protected void onListItemClick(ListView l, View v, int position, long id){
-//
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             case R.id.go_back:
                 return true;
+            case R.id.new_sprint:
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -59,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu){
         MenuItem goBack = menu.findItem(R.id.go_back);
         goBack.setVisible(false);
+
+        MenuItem newSprint = menu.findItem(R.id.new_sprint);
+        newSprint.setVisible(false);
         return true;
     }
 

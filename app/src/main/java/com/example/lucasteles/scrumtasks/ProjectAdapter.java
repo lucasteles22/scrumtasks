@@ -2,6 +2,8 @@ package com.example.lucasteles.scrumtasks;
 
 import android.content.Context;
 import java.util.ArrayList;
+
+import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,18 +35,14 @@ public class ProjectAdapter extends ArrayAdapter<Project>{
 
         final Project project = getItem(position);
 
-        TextView projectName = (TextView) layout.findViewById(R.id.item_project_name);
-        projectName.setText(project.getName());
-
         Button editBtn = (Button) layout.findViewById(R.id.btn_edit_project);
         editBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View arg0){
-                Toast.makeText(context, "Projeto inserido com sucesso!", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(context, EditProjectActivity.class);
-//                intent.putExtra("nome", projects.get(auxPosition).getName());
-//                intent.putExtra("id", projects.get(auxPosition).getId());
-//                context.startActivity(intent);
+            public void onClick(View arg0) {
+                Intent intent = new Intent(context, NewProjectActivity.class);
+                intent.putExtra("name", projects.get(auxPosition).getName());
+                intent.putExtra("id", projects.get(auxPosition).getId());
+                context.startActivity(intent);
             }
         });
 
@@ -52,11 +50,21 @@ public class ProjectAdapter extends ArrayAdapter<Project>{
         deleteBtn.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View arg0){
-                DataBase dataBase = new DataBase(context);
-                dataBase.delete(projects.get(auxPosition));
+                SQLiteRepository repository = new SQLiteRepository(context);
+                repository.projectRepository().delete(projects.get(auxPosition));
                 projects.remove(projects.get(auxPosition));
                 notifyDataSetChanged();
                 Toast.makeText(context, "Projeto excluído sucesso!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button addSprintBtn = (Button) layout.findViewById(R.id.btn_list_sprints);
+        addSprintBtn.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SprintActivity.class);
+                intent.putExtra("project_id", projects.get(auxPosition).getId());
+                context.startActivity(intent);
             }
         });
         return layout;
