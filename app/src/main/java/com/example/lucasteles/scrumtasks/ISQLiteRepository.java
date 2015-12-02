@@ -4,4 +4,8 @@ public interface ISQLiteRepository {
     IProjectRepository projectRepository();
 
     ISprintRepository sprintRepository();
+
+    ITaskRepository taskRepository();
+
+    void close();
 }

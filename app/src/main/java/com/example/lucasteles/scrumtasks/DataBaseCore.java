@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseCore  extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "ScrumTasksDataBase";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 9;
 
     public DataBaseCore(Context ctx){
         super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
@@ -17,13 +17,15 @@ public class DataBaseCore  extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         createProjectsTable(db);
         createSprintsTable(db);
+        createTasksTable(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         try {
-            dropProjectsTable(db);
+            dropTasksTable(db);
             dropSprintsTable(db);
+            dropProjectsTable(db);
             onCreate(db);
         } catch (SQLiteException e){
 
@@ -51,5 +53,21 @@ public class DataBaseCore  extends SQLiteOpenHelper{
 
     private void dropSprintsTable(SQLiteDatabase db){
         db.execSQL("drop table if exists sprints;");
+    }
+
+    //Tasks
+    private void createTasksTable(SQLiteDatabase db){
+        db.execSQL("create table tasks(" +
+                "_id integer primary key autoincrement, " +
+                "name text not null, " +
+                "finished integer not null default 0," +
+                "sprint_id integer not null, " +
+                "timeSpent timestamp not null default current_timestamp, " +
+                "expectedTime timestamp not null default current_timestamp, " +
+                "FOREIGN KEY(sprint_id) REFERENCES sprints(_id));");
+    }
+
+    private void dropTasksTable(SQLiteDatabase db){
+        db.execSQL("drop table if exists tasks");
     }
 }

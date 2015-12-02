@@ -64,10 +64,9 @@ public class SprintAdapter extends ArrayAdapter<Sprint> {
         addTaskBtn.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, SprintActivity.class);
-                intent.putExtra("project_id", sprints.get(auxPosition).getId());
+                Intent intent = new Intent(context, TaskActivity.class);
+                intent.putExtra("sprint_id", sprints.get(auxPosition).getId());
                 context.startActivity(intent);
-                Toast.makeText(context, "Listar tarefas!", Toast.LENGTH_SHORT).show();
             }
         });
         return layout;

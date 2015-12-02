@@ -94,6 +94,9 @@ public class NewSprintActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu){
         MenuItem createNewProject = menu.findItem(R.id.new_project);
         createNewProject.setVisible(false);
+
+        MenuItem newTask = menu.findItem(R.id.new_task);
+        newTask.setVisible(false);
         return true;
     }
 
@@ -119,6 +122,7 @@ public class NewSprintActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Já existe projeto com este nome", Toast.LENGTH_SHORT).show();
         }
+        repository.close();
     }
 
     public void editSprint(View view){
@@ -143,5 +147,7 @@ public class NewSprintActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Já existe projeto com este nome", Toast.LENGTH_SHORT).show();
         }
+
+        repository.close();
     }
 }

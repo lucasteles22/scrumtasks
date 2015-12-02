@@ -13,12 +13,12 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class SprintActivity extends AppCompatActivity {
+public class TaskActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sprint);
+        setContentView(R.layout.activity_task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -31,18 +31,29 @@ public class SprintActivity extends AppCompatActivity {
             }
         });
 
-
         Intent itWithExtras = getIntent();
         if(itWithExtras != null){
             Bundle bundle = itWithExtras.getExtras();
             if(bundle != null){
+//                SQLiteRepository repository = new SQLiteRepository(this);
+//                long sprintId = bundle.getLong("sprint_id");
+//                ArrayList<Task> tasks = repository.taskRepository().findAll();
+//
+//                TaskAdapter adapter = new TaskAdapter(this, tasks);
+//
+//                ListView listView = (ListView) findViewById(R.id.list_task);
+//                listView.setAdapter(adapter);
+
+
                 SQLiteRepository repository = new SQLiteRepository(this);
-                ArrayList<Sprint> sprints = repository.sprintRepository().findByProject(bundle.getLong("project_id"));
+                ArrayList<Task> tasks = repository.taskRepository().findBySprint(bundle.getLong("sprint_id"));
 
-                SprintAdapter adapter = new SprintAdapter(this, sprints);
+                TaskAdapter adapter = new TaskAdapter(this, tasks);
 
-                ListView listView = (ListView) findViewById(R.id.list_sprint);
+                ListView listView = (ListView) findViewById(R.id.list_task);
                 listView.setAdapter(adapter);
+
+                repository.close();
             }
         }
     }
@@ -58,21 +69,21 @@ public class SprintActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.go_back:
-                Intent intentProject = new Intent(SprintActivity.this, MainActivity.class);
-                startActivity(intentProject);
+//                Intent intentProject = new Intent(SprintActivity.this, MainActivity.class);
+//                startActivity(intentProject);
                 super.finish();
                 return true;
 
-            case R.id.new_sprint:
-                Intent intentNewSprint = new Intent(SprintActivity.this, NewSprintActivity.class);
+            case R.id.new_task:
+                Intent intentNewTask = new Intent(TaskActivity.this, NewTaskActivity.class);
                 Intent itWithExtras = getIntent();
                 if(itWithExtras != null){
                     Bundle bundle = itWithExtras.getExtras();
                     if(bundle != null){
-                        intentNewSprint.putExtra("project_id", bundle.getLong("project_id"));
+                        intentNewTask.putExtra("sprint_id", bundle.getLong("sprint_id"));
                     }
                 }
-                startActivity(intentNewSprint);
+                startActivity(intentNewTask);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -82,9 +93,6 @@ public class SprintActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu){
         MenuItem goBack = menu.findItem(R.id.new_project);
         goBack.setVisible(false);
-
-        MenuItem newTask = menu.findItem(R.id.new_task);
-        newTask.setVisible(false);
         return true;
     }
 }

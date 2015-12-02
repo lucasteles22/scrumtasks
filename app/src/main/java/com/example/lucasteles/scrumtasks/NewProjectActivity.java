@@ -83,6 +83,9 @@ public class NewProjectActivity extends AppCompatActivity {
 
         MenuItem newSprint = menu.findItem(R.id.new_sprint);
         newSprint.setVisible(false);
+
+        MenuItem newTask = menu.findItem(R.id.new_task);
+        newTask.setVisible(false);
         return true;
     }
 

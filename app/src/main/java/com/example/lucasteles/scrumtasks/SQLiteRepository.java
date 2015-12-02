@@ -15,4 +15,8 @@ public class SQLiteRepository implements ISQLiteRepository {
     }
 
     public ISprintRepository sprintRepository() { return  new SprintRepository(db); }
+
+    public ITaskRepository taskRepository() { return new TaskRepository(db); }
+
+    public void close() { this.db.close(); }
 }
