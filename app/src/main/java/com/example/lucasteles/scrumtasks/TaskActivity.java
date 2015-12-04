@@ -35,15 +35,6 @@ public class TaskActivity extends AppCompatActivity {
         if(itWithExtras != null){
             Bundle bundle = itWithExtras.getExtras();
             if(bundle != null){
-//                SQLiteRepository repository = new SQLiteRepository(this);
-//                long sprintId = bundle.getLong("sprint_id");
-//                ArrayList<Task> tasks = repository.taskRepository().findAll();
-//
-//                TaskAdapter adapter = new TaskAdapter(this, tasks);
-//
-//                ListView listView = (ListView) findViewById(R.id.list_task);
-//                listView.setAdapter(adapter);
-
 
                 SQLiteRepository repository = new SQLiteRepository(this);
                 ArrayList<Task> tasks = repository.taskRepository().findBySprint(bundle.getLong("sprint_id"));
@@ -69,8 +60,15 @@ public class TaskActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.go_back:
-//                Intent intentProject = new Intent(SprintActivity.this, MainActivity.class);
-//                startActivity(intentProject);
+                Intent sprintActivity = new Intent(TaskActivity.this, SprintActivity.class);
+                Intent itProjectWithExtras = getIntent();
+                if(itProjectWithExtras != null){
+                    Bundle bundle = itProjectWithExtras.getExtras();
+                    if(bundle != null){
+                        sprintActivity.putExtra("project_id", bundle.getLong("project_id"));
+                    }
+                }
+                startActivity(sprintActivity);
                 super.finish();
                 return true;
 
@@ -93,6 +91,9 @@ public class TaskActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu){
         MenuItem goBack = menu.findItem(R.id.new_project);
         goBack.setVisible(false);
+
+        MenuItem newSprint = menu.findItem(R.id.new_sprint);
+        newSprint.setVisible(false);
         return true;
     }
 }

@@ -66,6 +66,7 @@ public class SprintAdapter extends ArrayAdapter<Sprint> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, TaskActivity.class);
                 intent.putExtra("sprint_id", sprints.get(auxPosition).getId());
+                intent.putExtra("project_id", sprints.get(auxPosition).getProjectId());
                 context.startActivity(intent);
             }
         });

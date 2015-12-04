@@ -49,7 +49,7 @@ public class NewSprintActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent != null){
             Bundle bundle = intent.getExtras();
-            if(bundle != null && bundle.containsKey("id") || bundle.containsKey("name") || bundle.containsKey("position") && bundle.containsKey("project_id")){
+            if(bundle != null && bundle.containsKey("id") && bundle.containsKey("name") && bundle.containsKey("position") && bundle.containsKey("project_id")){
                 sprint.setId(bundle.getLong("id"));
                 sprint.setName(bundle.getString("name"));
                 editTextSprintName.setText(sprint.getName());

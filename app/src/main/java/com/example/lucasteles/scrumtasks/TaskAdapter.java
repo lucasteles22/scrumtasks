@@ -60,17 +60,6 @@ public class TaskAdapter  extends ArrayAdapter<Task> {
                 Toast.makeText(context, "Tarefa excluída com sucesso!", Toast.LENGTH_SHORT).show();
             }
         });
-
-//        Button addTaskBtn = (Button) layout.findViewById(R.id.btn_list_tasks);
-//        addTaskBtn.setOnClickListener(new Button.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Intent intent = new Intent(context, SprintActivity.class);
-////                intent.putExtra("project_id", tasks.get(auxPosition).getId());
-////                context.startActivity(intent);
-//                Toast.makeText(context, "Listar tarefas!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
         return layout;
     }
 }

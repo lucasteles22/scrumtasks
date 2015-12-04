@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -10,4 +10,134 @@
     tools:showIn="@layout/activity_new_task"
     tools:context="com.example.lucasteles.scrumtasks.NewTaskActivity">
 
-</RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Criando nova tarefa"
+            android:layout_gravity="center_horizontal"
+            android:textSize="30dp"
+            android:layout_marginBottom="50px" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText_name_sprint"
+            android:hint="Nome da tarefa"
+            android:layout_marginBottom="20px"
+            android:layout_weight="0.10" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="100px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/customborder">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tempo planejado"
+                android:layout_marginBottom="10px"
+                android:id="@+id/textViewTimePlanned" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:textSize="20dp"
+                    android:inputType="time"
+                    android:layout_marginRight="20px"
+                    android:layout_marginBottom="50px"
+                    android:id="@+id/text_view_time_planned"/>
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Ajustar"
+                    android:id="@+id/set_time_planned"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="100px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/container_time_spent"
+            android:background="@drawable/customborder">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tempo gasto"
+                android:layout_marginBottom="10px"
+                android:id="@+id/textViewTimeSpent" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:textSize="20dp"
+                    android:inputType="time"
+                    android:layout_marginRight="20px"
+                    android:layout_marginBottom="50px"
+                    android:id="@+id/text_view_time_spent"/>
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Ajustar"
+                    android:id="@+id/set_time_spent"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/editText_sprint_id_task" />
+
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="Criar"
+            android:id="@+id/btn_create_task"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.10"
+            android:onClick="saveNewSprint" />
+
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="Editar"
+            android:id="@+id/btn_edit_task"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.10"
+            android:onClick="editSprint" />
+
+    </LinearLayout>
+</ScrollView>
