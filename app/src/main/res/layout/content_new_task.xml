@@ -31,7 +31,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText_name_sprint"
+            android:id="@+id/editText_name_task"
             android:hint="Nome da tarefa"
             android:layout_marginBottom="20px"
             android:layout_weight="0.10" />
@@ -115,6 +115,13 @@
             </LinearLayout>
         </LinearLayout>
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finalizado?"
+            android:id="@+id/checkbox_status_task"
+            android:checked="false" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,7 +135,7 @@
             android:id="@+id/btn_create_task"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.10"
-            android:onClick="saveNewSprint" />
+            android:onClick="saveNewTask" />
 
         <Button
             android:layout_width="230dp"
@@ -137,7 +144,7 @@
             android:id="@+id/btn_edit_task"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.10"
-            android:onClick="editSprint" />
+            android:onClick="editTask" />
 
     </LinearLayout>
 </ScrollView>

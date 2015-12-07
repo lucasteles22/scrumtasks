@@ -4,13 +4,16 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TaskRepository implements ITaskRepository{
     private SQLiteDatabase db;
-    final SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+    final SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
 
     public TaskRepository(SQLiteDatabase db){
         this.db = db;
@@ -58,8 +61,8 @@ public class TaskRepository implements ITaskRepository{
                 t.setId(cursor.getLong(0));
                 t.setName(cursor.getString(1));
                 t.setFinished(cursor.getInt(2) > 0);
-                t.setExpectedTime(Timestamp.valueOf(cursor.getString(3)));
-                t.setTimeSpent(Timestamp.valueOf(cursor.getString(4)));
+                t.setExpectedTime(convertStringToTimestamp(cursor.getString(3)));
+                t.setTimeSpent(convertStringToTimestamp(cursor.getString(4)));
                 t.setSprintId(cursor.getLong(5));
 
                 tasks.add(t);
@@ -82,8 +85,8 @@ public class TaskRepository implements ITaskRepository{
                 t.setId(cursor.getLong(0));
                 t.setName(cursor.getString(1));
                 t.setFinished(cursor.getInt(2) > 0);
-                t.setExpectedTime(Timestamp.valueOf(cursor.getString(3)));
-                t.setTimeSpent(Timestamp.valueOf(cursor.getString(4)));
+                t.setExpectedTime(convertStringToTimestamp(cursor.getString(3)));
+                t.setTimeSpent(convertStringToTimestamp(cursor.getString(4)));
                 t.setSprintId(cursor.getLong(5));
 
                 tasks.add(t);
@@ -97,5 +100,14 @@ public class TaskRepository implements ITaskRepository{
     public ArrayList<Task> findByName(String name) {
         ArrayList<Task> tasks = new ArrayList<Task>();
         return tasks;
+    }
+
+    private Timestamp convertStringToTimestamp(String str) {
+        try {
+            Date date = parser.parse(str);
+            return new Timestamp(date.getTime());
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

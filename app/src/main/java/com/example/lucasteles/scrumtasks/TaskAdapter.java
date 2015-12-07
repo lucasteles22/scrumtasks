@@ -28,18 +28,19 @@ public class TaskAdapter  extends ArrayAdapter<Task> {
         final int auxPosition = position;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.item_sprint, null);
+        final LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.item_task, null);
 
-        TextView tv = (TextView) layout.findViewById(R.id.item_sprint_name);
+        TextView tv = (TextView) layout.findViewById(R.id.item_task_name);
         tv.setText(tasks.get(position).getName());
 
         final Task task = getItem(position);
 
-        Button editBtn = (Button) layout.findViewById(R.id.btn_edit_sprint);
+        Button editBtn = (Button) layout.findViewById(R.id.btn_edit_task);
         editBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(context, NewSprintActivity.class);
+                Intent intent = new Intent(context, NewTaskActivity.class);
+                intent.putExtra("id", tasks.get(auxPosition).getId());
                 intent.putExtra("name", tasks.get(auxPosition).getName());
                 intent.putExtra("finished", tasks.get(auxPosition).getFinished());
                 intent.putExtra("expectedTime", tasks.get(auxPosition).getExpectedTime());
@@ -49,14 +50,14 @@ public class TaskAdapter  extends ArrayAdapter<Task> {
             }
         });
 
-        Button deleteBtn = (Button) layout.findViewById(R.id.btn_delete_sprint);
+        Button deleteBtn = (Button) layout.findViewById(R.id.btn_delete_task);
         deleteBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-//                SQLiteRepository repository = new SQLiteRepository(context);
-//                repository.sprintRepository().delete(tasks.get(auxPosition));
-//                tasks.remove(tasks.get(auxPosition));
-//                notifyDataSetChanged();
+                SQLiteRepository repository = new SQLiteRepository(context);
+                repository.taskRepository().delete(tasks.get(auxPosition));
+                tasks.remove(tasks.get(auxPosition));
+                notifyDataSetChanged();
                 Toast.makeText(context, "Tarefa excluída com sucesso!", Toast.LENGTH_SHORT).show();
             }
         });
