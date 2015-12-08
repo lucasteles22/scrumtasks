@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ScrumTasks.iml" filepath="$PROJECT_DIR$/ScrumTasks.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scrumtasks.iml" filepath="$PROJECT_DIR$/scrumtasks.iml" />
       <module fileurl="file://$PROJECT_DIR$/scrumtasks.iml" filepath="$PROJECT_DIR$/scrumtasks.iml" />
     </modules>
   </component>

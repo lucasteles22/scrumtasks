@@ -102,6 +102,26 @@ public class TaskRepository implements ITaskRepository{
         return tasks;
     }
 
+    @Override
+    public Task findById(Long id){
+        Task task = new Task();
+        String[] cols = new String[]{"_id", "name", "finished", "expectedTime", "timeSpent", "sprint_id" };
+        Cursor cursor = db.query("tasks", cols, "_id = ?", new String[] { String.valueOf(id) }, null, null, "name ASC");
+
+        if(cursor.getCount() > 0) {
+            if(cursor.moveToFirst()) {
+                task.setId(cursor.getLong(0));
+                task.setName(cursor.getString(1));
+                task.setFinished(cursor.getInt(2) > 0);
+                task.setExpectedTime(convertStringToTimestamp(cursor.getString(3)));
+                task.setTimeSpent(convertStringToTimestamp(cursor.getString(4)));
+                task.setSprintId(cursor.getLong(5));
+            }
+        }
+
+        return task;
+    }
+
     private Timestamp convertStringToTimestamp(String str) {
         try {
             Date date = parser.parse(str);

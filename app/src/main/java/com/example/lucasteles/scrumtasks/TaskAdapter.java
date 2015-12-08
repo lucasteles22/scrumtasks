@@ -35,6 +35,17 @@ public class TaskAdapter  extends ArrayAdapter<Task> {
 
         final Task task = getItem(position);
 
+        Button manageTask = (Button) layout.findViewById(R.id.btn_manage_task);
+        manageTask.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TaskManageActivity.class);
+                intent.putExtra("id", tasks.get(auxPosition).getId());
+                intent.putExtra("sprint_id", tasks.get(auxPosition).getSprintId());
+                context.startActivity(intent);
+            }
+        });
+
         Button editBtn = (Button) layout.findViewById(R.id.btn_edit_task);
         editBtn.setOnClickListener(new Button.OnClickListener() {
             @Override

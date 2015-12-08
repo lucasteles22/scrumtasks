@@ -48,6 +48,11 @@
             android:label="@string/title_activity_new_task"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".TaskManageActivity"
+            android:label="@string/title_activity_task_manage"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

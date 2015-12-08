@@ -15,4 +15,6 @@ public interface ITaskRepository {
 
     ArrayList<Task> findByName(String name);
 
+    Task findById(Long id);
+
 }

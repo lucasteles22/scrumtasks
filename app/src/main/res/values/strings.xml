@@ -12,4 +12,5 @@
     <string name="title_activity_new_sprint">NewSprintActivity</string>
     <string name="title_activity_task">TaskActivity</string>
     <string name="title_activity_new_task">NewTaskActivity</string>
+    <string name="title_activity_task_manage">TaskManageActivity</string>
 </resources>

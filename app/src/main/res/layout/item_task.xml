@@ -18,6 +18,14 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:drawable/ic_delete"
+        android:layout_marginLeft="10px"
+        android:id="@+id/btn_manage_task" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10px"
         android:background="@android:drawable/ic_menu_edit"
         android:id="@+id/btn_edit_task" />
