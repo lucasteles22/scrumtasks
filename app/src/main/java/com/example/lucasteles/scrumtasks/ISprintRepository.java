@@ -9,9 +9,7 @@ public interface ISprintRepository {
 
     void delete(Sprint sprint);
 
-    ArrayList<Sprint> findAll();
-
     ArrayList<Sprint> findByProject(long projectId);
 
-    ArrayList<Sprint> findByName(String name);
+    Sprint findById(long id);
 }

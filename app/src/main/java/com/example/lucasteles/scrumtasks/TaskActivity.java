@@ -44,6 +44,8 @@ public class TaskActivity extends AppCompatActivity {
                 ListView listView = (ListView) findViewById(R.id.list_task);
                 listView.setAdapter(adapter);
 
+                itWithExtras.putExtra("project_id", bundle.getString("project_id"));
+
                 repository.close();
             }
         }
@@ -65,7 +67,13 @@ public class TaskActivity extends AppCompatActivity {
                 if(itProjectWithExtras != null){
                     Bundle bundle = itProjectWithExtras.getExtras();
                     if(bundle != null){
-                        sprintActivity.putExtra("project_id", bundle.getLong("project_id"));
+                        long projectId = bundle.getLong("project_id");
+                        if(projectId == 0L) {
+                            SQLiteRepository repository = new SQLiteRepository(this);
+                            Sprint sprint = repository.sprintRepository().findById(bundle.getLong("sprint_id"));
+                            projectId = sprint.getProjectId();
+                        }
+                        sprintActivity.putExtra("project_id", projectId);
                     }
                 }
                 startActivity(sprintActivity);

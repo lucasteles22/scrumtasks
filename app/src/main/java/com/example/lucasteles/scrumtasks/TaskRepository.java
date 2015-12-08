@@ -49,30 +49,6 @@ public class TaskRepository implements ITaskRepository{
     }
 
     @Override
-    public ArrayList<Task> findAll() {
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        String[] cols = new String[]{"_id", "name", "finished", "expectedTime", "timeSpent", "sprint_id" };
-        Cursor cursor = db.query("tasks", cols, null, null, null, null, "name ASC");
-
-        if(cursor.getCount() > 0){
-            cursor.moveToFirst();
-            do {
-                Task t = new Task();
-                t.setId(cursor.getLong(0));
-                t.setName(cursor.getString(1));
-                t.setFinished(cursor.getInt(2) > 0);
-                t.setExpectedTime(convertStringToTimestamp(cursor.getString(3)));
-                t.setTimeSpent(convertStringToTimestamp(cursor.getString(4)));
-                t.setSprintId(cursor.getLong(5));
-
-                tasks.add(t);
-            }while (cursor.moveToNext());
-        }
-
-        return tasks;
-    }
-
-    @Override
     public ArrayList<Task> findBySprint(long sprintId) {
         ArrayList<Task> tasks = new ArrayList<Task>();
         String[] cols = new String[]{"_id", "name", "finished", "expectedTime", "timeSpent", "sprint_id" };
@@ -93,12 +69,6 @@ public class TaskRepository implements ITaskRepository{
             }while (cursor.moveToNext());
         }
 
-        return tasks;
-    }
-
-    @Override
-    public ArrayList<Task> findByName(String name) {
-        ArrayList<Task> tasks = new ArrayList<Task>();
         return tasks;
     }
 

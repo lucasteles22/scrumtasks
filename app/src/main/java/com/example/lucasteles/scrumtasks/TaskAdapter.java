@@ -2,6 +2,7 @@ package com.example.lucasteles.scrumtasks;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +47,8 @@ public class TaskAdapter  extends ArrayAdapter<Task> {
             }
         });
 
-        Button editBtn = (Button) layout.findViewById(R.id.btn_edit_task);
-        editBtn.setOnClickListener(new Button.OnClickListener() {
+        Button newOrEditTask = (Button) layout.findViewById(R.id.btn_edit_task);
+        newOrEditTask.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(context, NewTaskActivity.class);
@@ -57,6 +58,8 @@ public class TaskAdapter  extends ArrayAdapter<Task> {
                 intent.putExtra("expectedTime", tasks.get(auxPosition).getExpectedTime());
                 intent.putExtra("timeSpent", tasks.get(auxPosition).getTimeSpent());
                 intent.putExtra("sprint_id", tasks.get(auxPosition).getSprintId());
+
+
                 context.startActivity(intent);
             }
         });

@@ -78,6 +78,15 @@ public class TaskManageActivity extends AppCompatActivity {
                     Bundle bundle = itProjectWithExtras.getExtras();
                     if(bundle != null){
                         taskActivity.putExtra("sprint_id", bundle.getLong("sprint_id"));
+
+                        long projectId = bundle.getLong("project_id");
+                        if(projectId == 0L) {
+                            SQLiteRepository repository = new SQLiteRepository(this);
+                            Sprint sprint = repository.sprintRepository().findById(bundle.getLong("sprint_id"));
+                            projectId = sprint.getProjectId();
+                        }
+
+                        taskActivity.putExtra("project_id", projectId);
                     }
                 }
                 startActivity(taskActivity);

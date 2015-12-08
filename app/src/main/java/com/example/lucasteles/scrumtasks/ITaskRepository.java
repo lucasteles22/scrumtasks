@@ -9,11 +9,7 @@ public interface ITaskRepository {
 
     void delete(Task task);
 
-    ArrayList<Task> findAll();
-
     ArrayList<Task> findBySprint(long sprintId);
-
-    ArrayList<Task> findByName(String name);
 
     Task findById(Long id);
 
