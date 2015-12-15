@@ -9,6 +9,28 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_task"
     tools:context="com.example.lucasteles.scrumtasks.TaskActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/container_has_not_task">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Nenhuma tarefa cadastrada"
+            android:textSize="30dp"
+            android:layout_marginBottom="200px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Clique no menu acima para cadastrar uma tarefa"
+            android:textSize="20dp" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/list_task"
         android:layout_height="wrap_content"

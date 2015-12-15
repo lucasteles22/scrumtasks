@@ -9,12 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class SprintActivity extends AppCompatActivity {
 
+    private LinearLayout containerHasNotSprint;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +38,14 @@ public class SprintActivity extends AppCompatActivity {
         if(itWithExtras != null){
             Bundle bundle = itWithExtras.getExtras();
             if(bundle != null){
+                containerHasNotSprint = (LinearLayout) findViewById(R.id.container_has_not_sprint);
+
                 SQLiteRepository repository = new SQLiteRepository(this);
                 ArrayList<Sprint> sprints = repository.sprintRepository().findByProject(bundle.getLong("project_id"));
+
+                if(sprints.size() > 0) {
+                    containerHasNotSprint.setVisibility(View.GONE);
+                }
 
                 SprintAdapter adapter = new SprintAdapter(this, sprints);
 

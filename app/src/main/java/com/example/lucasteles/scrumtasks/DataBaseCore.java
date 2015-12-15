@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseCore  extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "ScrumTasksDataBase";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
 
     public DataBaseCore(Context ctx){
         super(ctx, DATABASE_NAME, null, DATABASE_VERSION);

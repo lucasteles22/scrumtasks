@@ -113,7 +113,7 @@ public class NewSprintActivity extends AppCompatActivity {
             sprint.setProjectId(projectId);
             repository.sprintRepository().insert(sprint);
 
-            Intent sprintList = new Intent(this, TaskActivity.class);
+            Intent sprintList = new Intent(this, SprintActivity.class);
             sprintList.putExtra("project_id", sprint.getProjectId());
 
             startActivity(sprintList);

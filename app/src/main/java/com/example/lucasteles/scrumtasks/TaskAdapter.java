@@ -59,7 +59,6 @@ public class TaskAdapter  extends ArrayAdapter<Task> {
                 intent.putExtra("timeSpent", tasks.get(auxPosition).getTimeSpent());
                 intent.putExtra("sprint_id", tasks.get(auxPosition).getSprintId());
 
-
                 context.startActivity(intent);
             }
         });

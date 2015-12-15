@@ -9,11 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class TaskActivity extends AppCompatActivity {
+    private LinearLayout containerHasNotTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +37,14 @@ public class TaskActivity extends AppCompatActivity {
         if(itWithExtras != null){
             Bundle bundle = itWithExtras.getExtras();
             if(bundle != null){
+                containerHasNotTask = (LinearLayout) findViewById(R.id.container_has_not_task);
 
                 SQLiteRepository repository = new SQLiteRepository(this);
                 ArrayList<Task> tasks = repository.taskRepository().findBySprint(bundle.getLong("sprint_id"));
+
+                if(tasks.size() > 0) {
+                    containerHasNotTask.setVisibility(View.GONE);
+                }
 
                 TaskAdapter adapter = new TaskAdapter(this, tasks);
 

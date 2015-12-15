@@ -37,6 +37,7 @@ public class NewTaskActivity extends AppCompatActivity {
     private Button editBtn;
 
 
+
     // Replace with KK:mma if you want 0-11 interval
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,8 +106,8 @@ public class NewTaskActivity extends AppCompatActivity {
     private void fillActivityStructuresWithTask() {
         editTextNameTask.setText(task.getName());
         editTextSprintId.setText(String.valueOf(task.getSprintId()));
-        textViewTimePlanned.setText(String.format("%02d:%02d", getHourFromTimestamp(task.getExpectedTime()), getMinutesFromTimestamp(task.getExpectedTime())));
-        textViewTimeSpent.setText(String.format("%02d:%02d", getHourFromTimestamp(task.getTimeSpent()), getMinutesFromTimestamp(task.getTimeSpent())));
+        textViewTimePlanned.setText(String.format("%02d:%02d", getTimeFromTask(task.getExpectedTime(), Calendar.HOUR_OF_DAY), getTimeFromTask(task.getExpectedTime(), Calendar.MINUTE)));
+        textViewTimeSpent.setText(String.format("%02d:%02d", getTimeFromTask(task.getTimeSpent(), Calendar.HOUR_OF_DAY), getTimeFromTask(task.getTimeSpent(), Calendar.MINUTE)));
         checkBoxFinishedTask.setChecked(task.getFinished());
     }
 
@@ -122,9 +123,9 @@ public class NewTaskActivity extends AppCompatActivity {
     public void saveNewTask(View view) {
         String name = editTextNameTask.getText().toString();
         long sprintId = Long.parseLong(editTextSprintId.getText().toString());
-        Timestamp timeSpent = new Timestamp(0);
+        Timestamp timeSpent = convertTimePickerToTimestamp(textViewTimeSpent.getText().toString());
         Timestamp expectedTime = convertTimePickerToTimestamp(textViewTimePlanned.getText().toString());
-        boolean finished = true;
+        boolean finished = false;
         SQLiteRepository repository = new SQLiteRepository(this);
 
 //      Verify if exists another sprint with same name
@@ -256,18 +257,12 @@ public class NewTaskActivity extends AppCompatActivity {
         }
     }
 
-    private int getHourFromTimestamp(Timestamp stamp) {
-        Date date = new Date(stamp.getTime());
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return cal.get(Calendar.HOUR);
-    }
 
-    private int getMinutesFromTimestamp(Timestamp stamp) {
-        Date date = new Date(stamp.getTime());
+    private int getTimeFromTask(Timestamp t, int unit) {
+        Date date = new Date(t.getTime());
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        return cal.get(Calendar.MINUTE);
+        return cal.get(unit);
     }
 
     @Override

@@ -9,6 +9,26 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_sprint"
     tools:context="com.example.lucasteles.scrumtasks.SprintActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/container_has_not_sprint">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Nenhuma sprint cadastrada"
+            android:textSize="30dp"
+            android:layout_marginBottom="200px"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Clique no menu acima para cadastrar uma sprint"
+            android:textSize="20dp" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/list_sprint"

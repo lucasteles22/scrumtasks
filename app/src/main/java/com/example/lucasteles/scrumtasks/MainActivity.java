@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
+    private LinearLayout containerHasNotProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +23,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        containerHasNotProject = (LinearLayout) findViewById(R.id.container_has_not_project);
+
         SQLiteRepository repository = new SQLiteRepository(this);
         ArrayList<Project> projects = repository.projectRepository().findAll();
+
+        if(projects.size() > 0) {
+            containerHasNotProject.setVisibility(View.GONE);
+        }
 
         ProjectAdapter adapter = new ProjectAdapter(this, projects);
 

@@ -10,7 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.Toast;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -19,6 +21,12 @@ import java.util.Date;
 public class TaskManageActivity extends AppCompatActivity {
     private Chronometer chronometer;
     private Task task;
+    private Button btnManageStatusTask;
+    private Button btnStartTask;
+    private Button btnStopTask;
+    private Boolean chronometerIsRunning;
+    private String textButtonOpenTask = "Abrir novamente a tarefa?";
+    private String textButtonCloseTask = "Fechar a tarefa?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +44,20 @@ public class TaskManageActivity extends AppCompatActivity {
             }
         });
 
+        btnStartTask = (Button) findViewById(R.id.btn_start_stask);
+        btnStopTask = (Button) findViewById(R.id.btn_stop_task);
         chronometer = (Chronometer) findViewById(R.id.chronometer_task);
+        chronometerIsRunning = false;
+
+        if(chronometerIsRunning){
+            btnStartTask.setEnabled(false);
+            btnStopTask.setEnabled(true);
+        } else {
+            btnStartTask.setEnabled(true);
+            btnStopTask.setEnabled(false);
+        }
+
+        btnManageStatusTask = (Button) findViewById(R.id.manage_status_task);
 
         Intent intent = getIntent();
         if(intent != null){
@@ -48,8 +69,26 @@ public class TaskManageActivity extends AppCompatActivity {
                 int minute = getTimeFromTask(task.getTimeSpent(), Calendar.MINUTE) * 60 * 1000;
                 int second = getTimeFromTask(task.getTimeSpent(), Calendar.SECOND) * 1000;
                 chronometer.setBase(SystemClock.elapsedRealtime() - (hour + minute + second));
+                setStatusButtonsView();
                 repository.close();
             }
+        }
+    }
+
+//    private void setStatusBtnStartAndStop() {
+//        if(chronometerIsRunning) {
+//
+//        } else {
+//
+//        }
+//    }
+
+    private void setStatusButtonsView() {
+        if(task.getFinished()) {
+            btnManageStatusTask.setText(textButtonOpenTask);
+        }
+        else {
+            btnManageStatusTask.setText(textButtonCloseTask);
         }
     }
 
@@ -110,20 +149,29 @@ public class TaskManageActivity extends AppCompatActivity {
     }
 
     public void startChronometer(View view) {
+        chronometerIsRunning = true;
+        btnStartTask.setEnabled(false);
+        btnStopTask.setEnabled(true);
         chronometer.start();
     }
 
     public void stopChronometer(View view) {
+        chronometerIsRunning = false;
         chronometer.stop();
+        btnStartTask.setEnabled(true);
+        btnStopTask.setEnabled(false);
         SQLiteRepository repository = new SQLiteRepository(this);
 
         int hours = 0, minutes = 0, seconds = 0;
         String time = chronometer.getText().toString();
         String[] partsOfTime = time.split(":");
 
-        hours = Integer.parseInt(partsOfTime[0]);
-        minutes = Integer.parseInt(partsOfTime[1]);
-        if(partsOfTime.length == 3) {
+        if(partsOfTime.length == 2) {
+            minutes = Integer.parseInt(partsOfTime[0]);
+            seconds = Integer.parseInt(partsOfTime[1]);
+        } else if(partsOfTime.length == 3) {
+            hours = Integer.parseInt(partsOfTime[0]);
+            minutes = Integer.parseInt(partsOfTime[1]);
             seconds = Integer.parseInt(partsOfTime[2]);
         }
 
@@ -133,6 +181,38 @@ public class TaskManageActivity extends AppCompatActivity {
 
         repository.taskRepository().update(task);
         repository.close();
+    }
+
+    public void manageStatusTask(View view) {
+        chronometer.stop();
+        SQLiteRepository repository = new SQLiteRepository(this);
+
+        int hours = 0, minutes = 0, seconds = 0;
+        String time = chronometer.getText().toString();
+        String[] partsOfTime = time.split(":");
+
+        if(partsOfTime.length == 2) {
+            minutes = Integer.parseInt(partsOfTime[0]);
+            seconds = Integer.parseInt(partsOfTime[1]);
+        } else if(partsOfTime.length == 3) {
+            hours = Integer.parseInt(partsOfTime[0]);
+            minutes = Integer.parseInt(partsOfTime[1]);
+            seconds = Integer.parseInt(partsOfTime[2]);
+        }
+
+        Date now = getDateFromTime(hours, minutes, seconds);
+        java.sql.Timestamp timeSpent = new java.sql.Timestamp(now.getTime());
+        task.setTimeSpent(timeSpent);
+        task.setFinished(!task.getFinished());
+
+        repository.taskRepository().update(task);
+        repository.close();
+
+        Intent intentNewTask = new Intent(TaskManageActivity.this, TaskActivity.class);
+        intentNewTask.putExtra("sprint_id", task.getSprintId());
+        startActivity(intentNewTask);
+        super.finish();
+        Toast.makeText(TaskManageActivity.this, "Tarefa - " + task.getName() + " - ajustada!", Toast.LENGTH_SHORT).show();
     }
 
     private java.util.Date getDateFromTime(int hours, int minutes, int seconds){

@@ -43,16 +43,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="Start"
-                android:id="@+id/button"
+                android:id="@+id/btn_start_stask"
                 android:onClick="startChronometer" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="Stop"
-                android:id="@+id/button2"
+                android:id="@+id/btn_stop_task"
                 android:onClick="stopChronometer"/>
         </LinearLayout>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Texto"
+            android:id="@+id/manage_status_task"
+            android:layout_gravity="center_horizontal"
+            android:onClick="manageStatusTask"
+            android:layout_marginTop="100dp"/>
 
 
     </LinearLayout>
