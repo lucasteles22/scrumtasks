@@ -7,10 +7,10 @@
     <string name="finish">Sair</string>
     <string name="go_back">Voltar</string>
     <string name="title_activity_new_project">Novo projeto</string>
-    <string name="title_activity_edit_project">EditProjectActivity</string>
+    <string name="title_activity_edit_project">Editar projeto</string>
     <string name="title_activity_sprint">Sprints</string>
-    <string name="title_activity_new_sprint">NewSprintActivity</string>
-    <string name="title_activity_task">TaskActivity</string>
-    <string name="title_activity_new_task">NewTaskActivity</string>
-    <string name="title_activity_task_manage">TaskManageActivity</string>
+    <string name="title_activity_new_sprint">Nova sprint</string>
+    <string name="title_activity_task">Tarefas</string>
+    <string name="title_activity_new_task">Nova tarefa</string>
+    <string name="title_activity_task_manage">Gerenciar tarefa</string>
 </resources>

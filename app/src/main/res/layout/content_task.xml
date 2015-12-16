@@ -10,6 +10,7 @@
     tools:showIn="@layout/activity_task"
     tools:context="com.example.lucasteles.scrumtasks.TaskActivity">
 
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -31,9 +32,30 @@
             android:textSize="20dp" />
     </LinearLayout>
 
-    <ListView
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/container_summary">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:id="@+id/text_summary_tasks"
+            android:text="Projeto: x | Sprint: Y"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px">
+
+        <ListView
         android:id="@+id/list_task"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
-    </ListView>
+        </ListView>
+    </LinearLayout>
 </RelativeLayout>

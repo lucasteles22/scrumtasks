@@ -68,5 +68,20 @@ public class ProjectRepository implements IProjectRepository{
 
         return projects;
     }
+
+    public Project findById(long projectId){
+        Project project = new Project();
+        String[] cols = new String[]{"_id", "name" };
+        Cursor cursor = db.query("projects", cols, "_id = ?", new String[] { String.valueOf(projectId) }, null, null, null);
+
+        if(cursor.getCount() > 0){
+            if(cursor.moveToFirst()) {
+                project.setId(cursor.getLong(0));
+                project.setName(cursor.getString(1));
+            }
+        }
+
+        return project;
+    }
 }
 

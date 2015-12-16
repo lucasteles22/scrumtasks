@@ -12,4 +12,6 @@ public interface IProjectRepository {
     ArrayList<Project> findAll();
 
     ArrayList<Project> findByName(String name);
+
+    Project findById(long projectId);
 }
