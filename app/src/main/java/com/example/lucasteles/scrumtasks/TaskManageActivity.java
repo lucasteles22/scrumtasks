@@ -49,14 +49,6 @@ public class TaskManageActivity extends AppCompatActivity {
         chronometer = (Chronometer) findViewById(R.id.chronometer_task);
         chronometerIsRunning = false;
 
-        if(chronometerIsRunning){
-            btnStartTask.setEnabled(false);
-            btnStopTask.setEnabled(true);
-        } else {
-            btnStartTask.setEnabled(true);
-            btnStopTask.setEnabled(false);
-        }
-
         btnManageStatusTask = (Button) findViewById(R.id.manage_status_task);
 
         Intent intent = getIntent();
@@ -69,19 +61,27 @@ public class TaskManageActivity extends AppCompatActivity {
                 int minute = getTimeFromTask(task.getTimeSpent(), Calendar.MINUTE) * 60 * 1000;
                 int second = getTimeFromTask(task.getTimeSpent(), Calendar.SECOND) * 1000;
                 chronometer.setBase(SystemClock.elapsedRealtime() - (hour + minute + second));
+                setStatusButtonsStartAndStop();
                 setStatusButtonsView();
                 repository.close();
             }
         }
     }
 
-//    private void setStatusBtnStartAndStop() {
-//        if(chronometerIsRunning) {
-//
-//        } else {
-//
-//        }
-//    }
+    private void setStatusButtonsStartAndStop() {
+        if(task.getFinished()) {
+            btnStartTask.setEnabled(false);
+            btnStopTask.setEnabled(false);
+        } else {
+            if(chronometerIsRunning){
+                btnStartTask.setEnabled(false);
+                btnStopTask.setEnabled(true);
+            } else {
+                btnStartTask.setEnabled(true);
+                btnStopTask.setEnabled(false);
+            }
+        }
+    }
 
     private void setStatusButtonsView() {
         if(task.getFinished()) {
@@ -152,6 +152,12 @@ public class TaskManageActivity extends AppCompatActivity {
         chronometerIsRunning = true;
         btnStartTask.setEnabled(false);
         btnStopTask.setEnabled(true);
+
+        int hour = getTimeFromTask(task.getTimeSpent(), Calendar.HOUR) * 60 * 60 * 1000;
+        int minute = getTimeFromTask(task.getTimeSpent(), Calendar.MINUTE) * 60 * 1000;
+        int second = getTimeFromTask(task.getTimeSpent(), Calendar.SECOND) * 1000;
+        chronometer.setBase(SystemClock.elapsedRealtime() - (hour + minute + second));
+
         chronometer.start();
     }
 

@@ -2,6 +2,7 @@ package com.example.lucasteles.scrumtasks;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,13 @@ public class TaskAdapter  extends ArrayAdapter<Task> {
 
         TextView tv = (TextView) layout.findViewById(R.id.item_task_name);
         tv.setText(tasks.get(position).getName());
+
+        //Cor verde para tarefa finalizada, vermelha nao finalizada
+        if(tasks.get(position).getFinished()) {
+            tv.setTextColor(Color.GREEN);
+        } else {
+            tv.setTextColor(Color.RED);
+        }
 
         final Task task = getItem(position);
 

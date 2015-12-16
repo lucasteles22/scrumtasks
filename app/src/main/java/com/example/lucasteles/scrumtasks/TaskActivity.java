@@ -1,6 +1,7 @@
 package com.example.lucasteles.scrumtasks;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class TaskActivity extends AppCompatActivity {
     private LinearLayout containerHasNotTask;
-
+    private int[] colors = new int[] { Color.parseColor("#F0F0F0"), Color.parseColor("#D2E4FC") };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

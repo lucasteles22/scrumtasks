@@ -49,6 +49,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
+            android:icon="@mipmap/ic_alarm_add_black"
             android:name=".TaskManageActivity"
             android:label="@string/title_activity_task_manage"
             android:theme="@style/AppTheme.NoActionBar" >
