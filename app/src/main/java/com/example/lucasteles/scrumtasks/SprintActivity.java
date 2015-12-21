@@ -11,12 +11,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class SprintActivity extends AppCompatActivity {
-
     private LinearLayout containerHasNotSprint;
+    private LinearLayout containerSummary;
+    private TextView textViewSummarySprints;
+    private Project project;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +43,17 @@ public class SprintActivity extends AppCompatActivity {
             Bundle bundle = itWithExtras.getExtras();
             if(bundle != null){
                 containerHasNotSprint = (LinearLayout) findViewById(R.id.container_has_not_sprint);
+                containerSummary = (LinearLayout) findViewById(R.id.container_summary_sprint);
+                textViewSummarySprints = (TextView) findViewById(R.id.text_summary_sprints);
 
                 SQLiteRepository repository = new SQLiteRepository(this);
                 ArrayList<Sprint> sprints = repository.sprintRepository().findByProject(bundle.getLong("project_id"));
 
                 if(sprints.size() > 0) {
                     containerHasNotSprint.setVisibility(View.GONE);
+                    setContainerSummary(repository, bundle.getLong("project_id"));
+                } else {
+                    containerSummary.setVisibility(View.GONE);
                 }
 
                 SprintAdapter adapter = new SprintAdapter(this, sprints);
@@ -53,6 +62,11 @@ public class SprintActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
             }
         }
+    }
+
+    private void setContainerSummary(SQLiteRepository repository, long project_id) {
+        project = repository.projectRepository().findById(project_id);
+        textViewSummarySprints.setText("Projeto: " + project.getName());
     }
 
     @Override

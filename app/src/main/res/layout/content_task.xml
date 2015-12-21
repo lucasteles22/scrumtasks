@@ -36,7 +36,7 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/container_summary">
+        android:id="@+id/container_summary_tasks">
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

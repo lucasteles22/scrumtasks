@@ -46,7 +46,7 @@ public class TaskActivity extends AppCompatActivity {
             Bundle bundle = itWithExtras.getExtras();
             if(bundle != null){
                 containerHasNotTask = (LinearLayout) findViewById(R.id.container_has_not_task);
-                containerSummary = (LinearLayout) findViewById(R.id.container_summary);
+                containerSummary = (LinearLayout) findViewById(R.id.container_summary_tasks);
                 textViewSummaryTasks = (TextView) findViewById(R.id.text_summary_tasks);
 
                 SQLiteRepository repository = new SQLiteRepository(this);
